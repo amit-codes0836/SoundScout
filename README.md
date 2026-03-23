@@ -25,10 +25,10 @@ Responsive design for all devices
 Technologies Used
 HTML
 CSS
-JavaScript (ES6)
+JavaScript 
 Fetch API
 
 📂 Project Structure
-index.html
-style.css
-script.js
+sound.html
+soundstyle.css
+soundwork.js
