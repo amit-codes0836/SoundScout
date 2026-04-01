@@ -3,7 +3,7 @@ const searchInput = document.getElementById("searchInput");
 const songsContainer = document.getElementById("songsContainer");
 const loader = document.getElementById("loader");
 
-// Button click
+
 searchBtn.addEventListener("click", () => {
   let query = searchInput.value.trim();
 
@@ -12,7 +12,7 @@ searchBtn.addEventListener("click", () => {
   }
 });
 
-// Enter key support
+
 searchInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     searchBtn.click();
