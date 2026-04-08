@@ -7,15 +7,29 @@
 </head>
 <body>
 
-  <h1 class="symbol">🎧SoundScout</h1>
+  <h1 class="symbol">🎧 SoundScout</h1>
 
   <div class="search-box">
+    
     <input type="text" id="searchInput" placeholder="Search songs or artists...">
     <button id="searchBtn">Search</button>
+
+    
+    <input type="text" id="filterInput" placeholder="Filter by artist">
+    <button onclick="filterSongs()">Filter</button>
+
+    
+    <select onchange="sortSongs(this.value)">
+      <option value="">Sort</option>
+      <option value="az">A-Z</option>
+      <option value="za">Z-A</option>
+    </select>
   </div>
 
+  
   <div id="loader" class="hidden">Loading...</div>
 
+  
   <div id="songsContainer" class="songs-container"></div>
 
   <script src="soundwork.js"></script>
