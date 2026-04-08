@@ -1,3 +1,5 @@
+let allSongs = [];
+
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 const songsContainer = document.getElementById("songsContainer");
@@ -19,21 +21,24 @@ searchInput.addEventListener("keypress", (e) => {
   }
 });
 
+
 function fetchSongs(query) {
   loader.classList.remove("hidden");
   songsContainer.innerHTML = "";
 
-  fetch(`https://itunes.apple.com/search?term=${query}&media=music&limit=100`)
+  fetch(`https://itunes.apple.com/search?term=${query}&media=music&limit=50`)
     .then(res => res.json())
     .then(data => {
       loader.classList.add("hidden");
-      displaySongs(data.results);
+      allSongs = data.results;
+      displaySongs(allSongs);
     })
     .catch(err => {
       console.log("Error:", err);
       loader.classList.add("hidden");
     });
 }
+
 
 function displaySongs(songs) {
   songsContainer.innerHTML = "";
@@ -47,6 +52,7 @@ function displaySongs(songs) {
       <h3>${song.trackName}</h3>
       <p>${song.artistName}</p>
       <audio controls src="${song.previewUrl}"></audio>
+      <button onclick='addToFav("${song.trackName}")'>❤️</button>
     `;
 
     songsContainer.appendChild(card);
@@ -57,3 +63,38 @@ function displaySongs(songs) {
 window.onload = function() {
   fetchSongs("bollywood hits");
 };
+
+
+function filterSongs() {
+  let value = document.getElementById("filterInput").value.toLowerCase();
+
+  let filtered = allSongs.filter(song =>
+    song.artistName.toLowerCase().includes(value)
+  );
+
+  displaySongs(filtered);
+}
+
+
+function sortSongs(type) {
+  let sorted = [...allSongs];
+
+  if (type === "az") {
+    sorted.sort((a, b) => a.trackName.localeCompare(b.trackName));
+  } else if (type === "za") {
+    sorted.sort((a, b) => b.trackName.localeCompare(a.trackName));
+  }
+
+  displaySongs(sorted);
+}
+
+
+function addToFav(name) {
+  let favs = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  favs.push(name);
+
+  localStorage.setItem("favorites", JSON.stringify(favs));
+
+  alert("Added to favorites!");
+}
