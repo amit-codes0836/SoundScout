@@ -32,3 +32,6 @@ Fetch API
 sound.html
 soundstyle.css
 soundwork.js
+
+
+soundscout-main.netlify.app
